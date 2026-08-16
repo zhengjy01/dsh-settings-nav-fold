@@ -1,6 +1,6 @@
 {
   "name": "dsh-settings-nav-fold",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Fold plugin/extension settings entries in the DSH settings panel into one collapsible \"Plugin entries\" group row — one click to expand or collapse, auto-updating as plugins come and go.",
   "type": "module",
   "main": "lib/index.js",

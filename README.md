@@ -9,8 +9,10 @@ Declutter the DeepSeek Harness settings panel: with more plugins installed, the 
 ## Features
 
 - **One group row, right under the system settings** — `通用设置 / Models / Plugins / Agent presets` stay flat; everything else (plugins, extensions, extra pages) folds under `Plugin entries (N) ▾`.
-- **One-click expand/collapse** — click the group row to unfold all plugin entries below it; click again to fold them back.
-- **Auto-updating** — the count and the fold positions are recomputed from the live `settings.section` ledger, so entries appear/disappear as plugins register or unregister their settings pages. No configuration.
+- **Bookmark-style custom groups** — create named groups (like bookmark folders), move any settings entry into a group, and expand/collapse each group in the nav independently. A **Groups** page in the Settings panel manages everything: create, rename, delete groups, and move entries in/out.
+- **One-click expand/collapse** — click a group row to unfold its entries below it; click again to fold them back. Ungrouped entries stay under the `Plugin entries (N) ▾` row.
+- **Persistent** — group configuration is stored in `localStorage` (`dsh.settingsNavFold.v1`), survives restarts.
+- **Auto-updating** — counts and fold positions are recomputed from the live `settings.section` ledger, so entries appear/disappear as plugins register or unregister their settings pages. No configuration.
 - **Current section never disappears** — the active plugin page stays visible even while folded.
 - **Localized** — follows the UI locale (中文 / English).
 - **Zero host code** — pure browser-side plugin; nothing runs on the host process.
