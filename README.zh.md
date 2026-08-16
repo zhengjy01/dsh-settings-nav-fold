@@ -20,6 +20,10 @@
 ## 安装
 
 ```sh
+# 方式一：npm 包（推荐，国内网络更稳定）
+dsh plugin --profile web add dsh-settings-nav-organizer
+
+# 方式二：GitHub 仓库
 dsh plugin --profile web add github:zhengjy01/dsh-settings-nav-organizer
 ```
 
