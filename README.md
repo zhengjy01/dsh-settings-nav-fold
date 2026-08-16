@@ -2,21 +2,21 @@
 
 > **English** | [**中文**](README.zh.md)
 
-Declutter the DeepSeek Harness settings panel: with more plugins installed, the settings sidebar grows one entry per plugin. This plugin folds every plugin/extension entry into a single collapsible **Plugin entries** group row, placed right below the system settings, with a dropdown arrow — one click to expand or collapse.
+Declutter the DeepSeek Harness settings panel: with more plugins installed, the settings sidebar grows one entry per plugin. This plugin folds every plugin/extension entry into a single collapsible **Plugin entries** group row, lets you organize entries into **bookmark-style named groups**, adds a **fold toggle** in General settings, and provides a visual **Plugin manager** page.
 
 ![Awesome DSH Plugin](https://awesome-dsh-plugin.com/badge.svg)
 
 ## Features
 
 - **One group row, right under the system settings** — `通用设置 / Models / Plugins / Agent presets` stay flat; everything else (plugins, extensions, extra pages) folds under `Plugin entries (N) ▾`.
+- **Fold toggle** — a switch in **Settings → General** (`折叠第三方插件入口`) turns the whole folding behavior on/off: off restores the plain native nav with every entry flat.
 - **Bookmark-style custom groups** — create named groups (like bookmark folders), move any settings entry into a group, and expand/collapse each group in the nav independently. A **Groups** page in the Settings panel manages everything: create, rename, delete groups, and move entries in/out.
 - **One-click expand/collapse** — click a group row to unfold its entries below it; click again to fold them back. Ungrouped entries stay under the `Plugin entries (N) ▾` row.
-- **Persistent** — group configuration is stored in `localStorage` (`dsh.settingsNavFold.v1`), survives restarts.
+- **Persistent** — group configuration and the fold toggle are stored in `localStorage` (`dsh.settingsNavFold.v1`), survives restarts.
 - **Visual plugin management** — a **Plugin manager** page in the Settings panel disables, enables, or uninstalls profile-patch plugins (user-installed rows) right from the UI, with runtime effect and persisted to `cordis.patch.yml` / the profile `package.json`. Bundle-owned rows are read-only.
 - **Auto-updating** — counts and fold positions are recomputed from the live `settings.section` ledger, so entries appear/disappear as plugins register or unregister their settings pages. No configuration.
 - **Current section never disappears** — the active plugin page stays visible even while folded.
 - **Localized** — follows the UI locale (中文 / English).
-- **Zero host code** — pure browser-side plugin; nothing runs on the host process.
 
 ## Install
 
@@ -24,26 +24,45 @@ Declutter the DeepSeek Harness settings panel: with more plugins installed, the 
 dsh plugin --profile web add github:zhengjy01/dsh-settings-nav-fold
 ```
 
-Restart `dsh`, open the Settings panel (gear icon at the sidebar foot), and the nav now shows the core entries plus the `Plugin entries (N) ▾` group row.
+Restart `dsh` (the host half must load), then refresh the browser page. Open the Settings panel (gear icon at the sidebar foot).
+
+## Usage
+
+Everything lives in the Settings panel (`设置`):
+
+1. **Fold toggle** — open **General** (`通用设置`), the first row is `折叠第三方插件入口 / Fold third-party plugin entries`. On (default): plugin entries fold under the group rows; off: the nav goes back to plain native with every entry flat. The switch state is remembered across restarts.
+
+2. **Group rows in the nav** — with the toggle on, the nav shows the core entries, then a `Plugin entries (N) ▾` row (and any custom group rows). Click a row to expand/collapse its entries below it.
+
+3. **Bookmark-style groups** — open **Groups** (`分组管理`) in the nav:
+   - type a name and hit **New group** to create a group;
+   - in the **Ungrouped** section, pick a group from each entry's dropdown to move it in;
+   - inside a group card, use **Rename** / **Delete** / **Remove** to manage it (deleting a group moves its entries back to Ungrouped).
+
+4. **Plugin manager** — open **Plugin manager** (`插件管理`) in the nav:
+   - every loaded plugin is listed with its state (Enabled/Disabled + phase);
+   - profile-patch plugins (user-installed, marked `manageable`) have **Disable** / **Enable** and **Uninstall** buttons; bundle rows are read-only;
+   - disabling or uninstalling takes effect immediately; the plugin disappears from the page on refresh.
 
 ## How it works
 
 The settings nav list is rendered by the shipped panel and is not a slot, so the plugin:
 
 1. reads the `settings.section` slot ledger (`ctx.slots.entries`) and sorts it exactly like the panel does;
-2. injects the group row into the nav list DOM right after the last core entry (idempotent — no DOM change when already placed);
-3. marks plugin buttons with `data-snav-plugin` and the list with `data-snav-folded`, and hides them via a small stylesheet (the active `aria-current` row stays visible);
-4. follows the ledger and panel re-renders with a `MutationObserver`, so the group stays correct as plugins come and go.
+2. injects the group rows into the nav list DOM right after the last core entry (idempotent — no DOM change when already placed);
+3. marks plugin buttons with `data-snav-plugin` / `data-snav-group` and drives visibility via a small stylesheet (the active `aria-current` row stays visible);
+4. follows the ledger and panel re-renders with a scoped `MutationObserver` (with a storm watchdog), so the group stays correct as plugins come and go;
+5. the host half provides the `settingsNavManage` Remote service for the Plugin manager page: disable/enable rewrites the entry block in the profile `cordis.patch.yml` and restarts the fiber; uninstall additionally drops the dependency from the profile `package.json`.
 
-Everything is owned by the plugin fiber: styles, subscriptions, the observer, and the injected row are removed when the plugin is stopped or uninstalled.
+Everything is owned by the plugin fiber: styles, subscriptions, the observer, the injected rows, and the host service are removed when the plugin is stopped or uninstalled.
 
 ## Uninstall
-
-Remove the plugin from the profile and delete the line(s) it added to `cordis.patch.yml`:
 
 ```sh
 dsh plugin --profile web remove dsh-settings-nav-fold
 ```
+
+This stops the plugin, removes its row from `cordis.patch.yml` and its dependency from the profile `package.json`. (You can also do this from the Plugin manager page.)
 
 ## License
 
