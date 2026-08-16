@@ -1,4 +1,4 @@
-# dsh-settings-nav-fold
+# dsh-settings-nav-organizer
 
 > [**English**](README.md) | **中文**
 
@@ -20,7 +20,7 @@
 ## 安装
 
 ```sh
-dsh plugin --profile web add github:zhengjy01/dsh-settings-nav-fold
+dsh plugin --profile web add github:zhengjy01/dsh-settings-nav-organizer
 ```
 
 安装后**重启 DSH**（宿主端需加载），再刷新浏览器页面，打开设置面板（侧边栏底部齿轮）即可。
@@ -51,7 +51,7 @@ dsh plugin --profile web add github:zhengjy01/dsh-settings-nav-fold
 ## 卸载
 
 ```sh
-dsh plugin --profile web remove dsh-settings-nav-fold
+dsh plugin --profile web remove dsh-settings-nav-organizer
 ```
 
 会停止插件、移除 `cordis.patch.yml` 中的行及 profile `package.json` 中的依赖。

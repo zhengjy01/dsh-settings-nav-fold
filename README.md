@@ -1,4 +1,4 @@
-# dsh-settings-nav-fold
+# dsh-settings-nav-organizer
 
 > **English** | [**中文**](README.zh.md)
 
@@ -20,7 +20,7 @@ Declutter the DeepSeek Harness settings panel: with more plugins installed, the 
 ## Install
 
 ```sh
-dsh plugin --profile web add github:zhengjy01/dsh-settings-nav-fold
+dsh plugin --profile web add github:zhengjy01/dsh-settings-nav-organizer
 ```
 
 Restart `dsh` (the host half must load), then refresh the browser page. Open the Settings panel (gear icon at the sidebar foot).
@@ -51,7 +51,7 @@ Everything is owned by the plugin fiber: styles, subscriptions, the observer, an
 ## Uninstall
 
 ```sh
-dsh plugin --profile web remove dsh-settings-nav-fold
+dsh plugin --profile web remove dsh-settings-nav-organizer
 ```
 
 This stops the plugin, removes its row from `cordis.patch.yml` and its dependency from the profile `package.json`.

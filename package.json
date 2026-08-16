@@ -1,7 +1,7 @@
 {
-  "name": "dsh-settings-nav-fold",
-  "version": "1.3.3",
-  "description": "Fold plugin/extension settings entries in the DSH settings panel into one collapsible \"Plugin entries\" group row — one click to expand or collapse, auto-updating as plugins come and go.",
+  "name": "dsh-settings-nav-organizer",
+  "version": "1.4.0",
+  "description": "Organize the DSH settings panel nav: fold third-party plugin entries under collapsible group rows, with bookmark-style custom groups and a fold toggle in General settings.",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -43,6 +43,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zhengjy01/dsh-settings-nav-fold.git"
+    "url": "https://github.com/zhengjy01/dsh-settings-nav-organizer.git"
   }
 }
