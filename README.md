@@ -1,5 +1,7 @@
 # dsh-settings-nav-fold
 
+> **English** | [**中文**](README.zh.md)
+
 Declutter the DeepSeek Harness settings panel: with more plugins installed, the settings sidebar grows one entry per plugin. This plugin folds every plugin/extension entry into a single collapsible **Plugin entries** group row, placed right below the system settings, with a dropdown arrow — one click to expand or collapse.
 
 ![Awesome DSH Plugin](https://awesome-dsh-plugin.com/badge.svg)

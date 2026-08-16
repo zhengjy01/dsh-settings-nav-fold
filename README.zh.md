@@ -1,5 +1,7 @@
 # dsh-settings-nav-fold
 
+> [**English**](README.md) | **中文**
+
 给 DeepSeek Harness 设置面板「减负」：插件装得越多，设置页侧边栏的入口就越乱。本插件把所有插件/扩展的设置入口折叠成一个可展开的 **插件入口** 分组行，就放在系统配置下方，带下拉箭头，点击即展开/收起。
 
 ![Awesome DSH Plugin](https://awesome-dsh-plugin.com/badge.svg)
