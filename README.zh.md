@@ -46,7 +46,7 @@ dsh plugin --profile web add github:zhengjy01/dsh-settings-nav-fold
 2. 把分组行**注入**到导航列表 DOM 中最后一个核心项之后（幂等：位置正确时不改动 DOM）；
 3. 用 `data-snav-plugin` / `data-snav-group` 标记插件按钮，通过一小段样式表控制显隐（当前激活的 `aria-current` 行保持可见）；
 4. 用针对性 `MutationObserver`（带风暴看门狗）跟随台账变化与面板重渲染，插件增删时分组始终正确；
-样式、订阅、观察器、注入行与宿主服务全部挂在插件 fiber 上，停止或卸载插件时自动清理、完全还原。
+样式、订阅、观察器与注入行全部挂在插件 fiber 上，停止或卸载插件时自动清理、完全还原。
 
 ## 卸载
 

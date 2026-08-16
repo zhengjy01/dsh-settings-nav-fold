@@ -46,7 +46,7 @@ The settings nav list is rendered by the shipped panel and is not a slot, so the
 2. injects the group rows into the nav list DOM right after the last core entry (idempotent — no DOM change when already placed);
 3. marks plugin buttons with `data-snav-plugin` / `data-snav-group` and drives visibility via a small stylesheet (the active `aria-current` row stays visible);
 4. follows the ledger and panel re-renders with a scoped `MutationObserver` (with a storm watchdog), so the group stays correct as plugins come and go;
-Everything is owned by the plugin fiber: styles, subscriptions, the observer, the injected rows, and the host service are removed when the plugin is stopped or uninstalled.
+Everything is owned by the plugin fiber: styles, subscriptions, the observer, and the injected rows are removed when the plugin is stopped or uninstalled.
 
 ## Uninstall
 
