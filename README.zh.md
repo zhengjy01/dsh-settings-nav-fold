@@ -2,7 +2,7 @@
 
 > [**English**](README.md) | **中文**
 
-给 DeepSeek Harness 设置面板「减负」：插件装得越多，设置页侧边栏的入口就越乱。本插件把所有插件/扩展的设置入口折叠成一个可展开的 **插件入口** 分组行，支持**书签式自定义分组**、**折叠总开关**，并提供可视化**插件管理**页。
+给 DeepSeek Harness 设置面板「减负」：插件装得越多，设置页侧边栏的入口就越乱。本插件把所有插件/扩展的设置入口折叠成一个可展开的 **插件入口** 分组行，支持**书签式自定义分组**与**折叠总开关**。
 
 ![Awesome DSH Plugin](https://awesome-dsh-plugin.com/badge.svg)
 
@@ -13,7 +13,6 @@
 - **书签式自定义分组** —— 像书签文件夹一样创建命名分组，把任意设置入口归入分组，导航中每个分组独立展开/收起；「分组管理」页可新建、重命名、删除分组，条目移入/移出分组。
 - **一键展开/收起** —— 点击分组行，组内条目在其下方展开；再点即收起。未分组的条目保留在「插件入口 (N) ▾」行。
 - **持久化** —— 分组配置与开关状态存于 localStorage（键 `dsh.settingsNavFold.v1`），重启不丢。
-- **可视化插件管理** —— 「插件管理」页对用户补丁层（profile patch）安装的插件可一键禁用、启动或卸载，运行时立即生效并持久化到 `cordis.patch.yml` 与 profile `package.json`；来自 bundle 的插件为只读。
 - **自动更新** —— 计数与折叠位置实时跟随 `settings.section` 台账重算，插件注册/卸载设置页时自动增减，无需任何配置。
 - **当前页不消失** —— 正在查看的插件设置页即使处于折叠状态也保持可见。
 - **跟随界面语言** —— 中文 / English。
@@ -39,11 +38,6 @@ dsh plugin --profile web add github:zhengjy01/dsh-settings-nav-fold
    - 在「未分组」区域，用每个条目右侧的下拉框把它移入某个分组；
    - 在分组卡片内可「重命名」「删除」「移出」（删除分组时条目自动回到未分组）。
 
-4. **插件管理** —— 点击导航中的「插件管理」：
-   - 列出全部已加载插件及其状态（已启用/已禁用 + 运行阶段）；
-   - 标为「可管理」的（用户补丁层安装的插件）提供「禁用/启动」「卸载」按钮；来自 bundle 的插件为只读；
-   - 禁用或卸载即时生效，刷新页面后对应插件入口消失。
-
 ## 原理
 
 设置导航列表由面板内部渲染、并非 Slot，因此插件：
@@ -52,8 +46,6 @@ dsh plugin --profile web add github:zhengjy01/dsh-settings-nav-fold
 2. 把分组行**注入**到导航列表 DOM 中最后一个核心项之后（幂等：位置正确时不改动 DOM）；
 3. 用 `data-snav-plugin` / `data-snav-group` 标记插件按钮，通过一小段样式表控制显隐（当前激活的 `aria-current` 行保持可见）；
 4. 用针对性 `MutationObserver`（带风暴看门狗）跟随台账变化与面板重渲染，插件增删时分组始终正确；
-5. 宿主端提供 `settingsNavManage` Remote 服务支撑「插件管理」页：禁用/启用会改写 profile `cordis.patch.yml` 中对应条目块并重启 fiber；卸载还会从 profile `package.json` 移除依赖。
-
 样式、订阅、观察器、注入行与宿主服务全部挂在插件 fiber 上，停止或卸载插件时自动清理、完全还原。
 
 ## 卸载
@@ -62,7 +54,7 @@ dsh plugin --profile web add github:zhengjy01/dsh-settings-nav-fold
 dsh plugin --profile web remove dsh-settings-nav-fold
 ```
 
-会停止插件、移除 `cordis.patch.yml` 中的行及 profile `package.json` 中的依赖（也可在「插件管理」页操作）。
+会停止插件、移除 `cordis.patch.yml` 中的行及 profile `package.json` 中的依赖。
 
 ## License
 
