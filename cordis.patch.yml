@@ -1,5 +1,5 @@
-# dsh-settings-nav-fold bundle patch: mount the browser plugin row.
+# dsh-settings-nav-organizer bundle patch: mount the browser plugin row.
 # Applied after every bundle layer; the row is inserted into the composition.
 - insert:
     - id: settings-nav-fold
-      name: dsh-settings-nav-fold
+      name: dsh-settings-nav-organizer
